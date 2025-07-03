@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JEE Study Timer</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Siracha', sans-serif;
+      background-color: #3a2e25;
+      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: 200px;
+      height: 100vh;
+      background-color: #3a2e25;
+      color: white;
+      padding: 30px 20px;
+      position: fixed;
+      top: 0;
+      left: -220px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 10px;
+      display: block;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #57493e;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      background: #3a2e25;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1100;
+      transition: opacity 0.3s;
+    }
+
+    .toggle-btn.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    /* Link styles in social section */
+    #social a {
+      color: #ffffff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    #social a:hover {
+      color: #7a5f4d;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <h2>Menu</h2>
+    <a href="#" onclick="switchSection('home')">🏠 Home</a>
+    <a href="#" onclick="switchSection('study-log')">📚 Study Log</a>
+    <a href="#" onclick="switchSection('about')">📘 About</a>
+    <a href="#" onclick="switchSection('social')">🌐 Social</a>
+  </div>
+
+  <div class="main" id="mainContent">
+    <section id="home" class="active"> 
+      <div class="container">
+        <h1>📚 JEE Study Timer</h1>
+        <div id="timer">00:00:00</div>
+        <div class="btns">
+          <button id="startStopBtn">Start</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+        <h2>Today's Total: <span id="dailyTotal">00:00:00</span></h2>
+        <h3>📅 Study Log:</h3>
+        <ul id="logList"></ul>
+      </div>
+    </section>
+
+    <section id="about">
+      <h1>About This Project</h1></p>
+      <p style="text-align:center;"> This is an app made for maintaining a study log, which helps you to know how many hours you studied in a day. Made with 💖 using JavaScript’s SpeechSynthesis API. Made and Designed by Aymaan.</p>
+    </section>
+
+    <section id="social">
+      <h1>Connect With Me</h1>
+      <p style="text-align:center;">
+        
+        Instagram: <a href="https://www.instagram.com/frfraymaan" target="_blank">frfraymaan</a>
+      </p>
+      <p style="text-align:center;">
+        LinkedIn: <a href="https://www.linkedin.com/in/frfraymaaan" target="_blank">Aymaan</a>
+      </p>
+    </section>
+  </div>
+
+  <script>
+    const synth = window.speechSynthesis;
+    const textInput = document.getElementById('text');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleBtn');
+    let voices = [];
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('active');
+      toggleBtn.classList.toggle('hide');
+    }
+
+    function switchSection(sectionId) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      sidebar.classList.remove('active');
+      toggleBtn.classList.remove('hide');
+
+      
+    }
+  </script>
+
+  <script src="script.js"></script>
+
+  <footer style="text-align:center; padding:20px; background:#7a5f4d; color:white; position:fixed; bottom:0; width:100%;">
+    © 2025 Senyura's Study Timer. Built with 💖 by Aymaan
+  </footer>
+
+</body>
+</html>
